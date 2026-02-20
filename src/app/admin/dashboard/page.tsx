@@ -34,9 +34,11 @@ type Member = {
     id: string;
     companyName: string;
     companyType: string;
+    memberType: "NEW" | "EXISTING";
+    membershipId: string | null;
     primaryMobile: string;
     primaryEmail: string;
-    status: string;
+    status: "PENDING" | "APPROVED" | "REJECTED" | "PAYMENT_PENDING" | "ACTIVE";
     gstNumber: string;
     gstFile: string;
     photoFile: string;
@@ -466,7 +468,7 @@ export default function AdminDashboard() {
                                                             </div>
                                                         )}
 
-                                                        {(member.status === "PENDING" || member.status === "APPROVED") && member.status !== "PAYMENT_PENDING" && member.status !== "ACTIVE" && (
+                                                        {(member.status === "PENDING" || member.status === "APPROVED") && (
                                                             <Button
                                                                 size="sm"
                                                                 onClick={() => {
@@ -509,6 +511,7 @@ export default function AdminDashboard() {
 
                     {/* --- OFFICE BEARERS TAB --- */}
                     <TabsContent value="office-bearers" className="space-y-4">
+                        {/* ... (Office Bearers Content) */}
                         <div className="flex justify-between items-center">
                             <h2 className="text-xl font-bold">Committee Management</h2>
                             <Dialog open={isOBDialogOpen} onOpenChange={setIsOBDialogOpen}>
@@ -616,7 +619,7 @@ export default function AdminDashboard() {
                             ))}
                             {officeBearers.length === 0 && (
                                 <div className="col-span-full text-center py-12 text-slate-500 border-2 border-dashed rounded-xl">
-                                    No office bearers found. Click "Add Office Bearer" to start.
+                                    No office bearers found. Click &quot;Add Office Bearer&quot; to start.
                                 </div>
                             )}
                         </div>
